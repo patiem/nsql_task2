@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,18 +22,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Task getTaskById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("No Task with id %s", id)));
+    }
+
+    @Override
     public List<Task> getOverdueTasks() {
-        return List.of();
+        return repository.findOverdueTasks(new Date());
     }
 
     @Override
     public List<Task> getTasksByCategory(String category) {
-        return List.of();
-    }
+        return repository.findByCategory(category);    }
 
     @Override
     public List<SubTask> getSubTasksByTaskCategory(String category) {
-        return List.of();
+        return repository.findByCategorySubTasks(category);
     }
 
     @Override
@@ -43,10 +49,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task updateTaskWithSubtask(String id, SubTask subTask) {
-        Task task = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("No Task with id %s", id)));
-        task.addSubtask(subTask);
-        return repository.save(task);
+        return repository.findAndPushSubTaskById(id, subTask);
     }
 
     @Override
@@ -55,12 +58,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> searchByDescription(String word) {
-        return List.of();
+    public List<Task> findByDescriptionContaining(String phrase) {
+        return repository.findByDescriptionContaining(phrase);
     }
 
     @Override
-    public List<Task> searchBySubtaskName(String word) {
-        return List.of();
+    public List<Task> findBySubTaskNameContaining(String phrase) {
+        return repository.findBySubTaskNameContaining(phrase);
     }
 }

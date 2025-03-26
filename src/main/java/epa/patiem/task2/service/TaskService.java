@@ -8,6 +8,7 @@ import java.util.List;
 public interface TaskService {
 
     List<Task> getAll();
+    Task getTaskById(String id);
     List<Task> getOverdueTasks();
     List<Task> getTasksByCategory(String category);
     List<SubTask> getSubTasksByTaskCategory(String category);
@@ -16,6 +17,6 @@ public interface TaskService {
     Task updateTaskWithSubtask(String id, SubTask subTask);
     void deleteTask(String id);
 
-    List<Task> searchByDescription(String word);
-    List<Task> searchBySubtaskName(String word);
+    List<Task> findByDescriptionContaining(String phrase);
+    List<Task> findBySubTaskNameContaining(String phrase);
 }
