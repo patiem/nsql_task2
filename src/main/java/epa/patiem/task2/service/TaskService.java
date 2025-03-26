@@ -13,7 +13,7 @@ public interface TaskService {
     List<SubTask> getSubTasksByTaskCategory(String category);
 
     Task saveTask(Task task);
-    Task updateTask(String id, Task task);
+    Task updateTaskWithSubtask(String id, SubTask subTask);
     void deleteTask(String id);
 
     List<Task> searchByDescription(String word);
