@@ -36,8 +36,9 @@ public class TaskController {
 
     @PutMapping(value = "/task/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable String id, @RequestBody SubTask subTask) {
-        Task updated = taskService.updateTaskWithSubtask(id, subTask);
-        return ResponseEntity.ok().body(updated);
+        taskService.updateTaskWithSubtask(id, subTask);
+        Task taskById = taskService.getTaskById(id);
+        return ResponseEntity.ok().body(taskById);
     }
 
     @DeleteMapping(value = "/task/{id}")
@@ -57,7 +58,7 @@ public class TaskController {
     }
 
     @GetMapping(value = "/category/subtasks/{category}")
-    public List<SubTask> getSubtasksByTaskCategory(@PathVariable String category) {
+    public List<Task> getSubtasksByTaskCategory(@PathVariable String category) {
         return taskService.getSubTasksByTaskCategory(category);
     }
 

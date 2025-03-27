@@ -37,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
         return repository.findByCategory(category);    }
 
     @Override
-    public List<SubTask> getSubTasksByTaskCategory(String category) {
+    public List<Task> getSubTasksByTaskCategory(String category) {
         return repository.findByCategorySubTasks(category);
     }
 
@@ -48,8 +48,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTaskWithSubtask(String id, SubTask subTask) {
-        return repository.findAndPushSubTaskById(id, subTask);
+    public void updateTaskWithSubtask(String id, SubTask subTask) {
+        repository.findAndPushSubTaskById(id, subTask);
     }
 
     @Override

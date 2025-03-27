@@ -61,8 +61,10 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     }
 
     private String getConnectionString() {
-        return "mongodb://" + username
-                + ":" + password + "@"
+        return "mongodb://"
+//                + username
+//                + ":" + password
+//                + "@"
                 + host + ":" + port + "/"
                 + database + "?authSource="
                 + authentication_database + "&retryWrites=false";

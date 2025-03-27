@@ -13,11 +13,11 @@ public interface TaskRepository extends MongoRepository<Task, String> {
 
     List<Task> findByCategory(String category);
 
-    @Query(value = "{'category': {$eq: ?0}}", fields = "subTasks")
-    List<SubTask> findByCategorySubTasks(String category);
+    @Query(value = "{'category': {$eq: ?0}}", fields = "{'subTasks': 1}")
+    List<Task> findByCategorySubTasks(String category);
 
     @Update("{ '$push' : { 'subTasks' : ?1 } }")
-    Task findAndPushSubTaskById(String id, SubTask subTask);
+    void findAndPushSubTaskById(String id, SubTask subTask);
 
     @Query("{'deadline': {$lt: ?0}}")
     List<Task> findOverdueTasks(Date currentDate);

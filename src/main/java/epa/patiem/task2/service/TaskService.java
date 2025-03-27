@@ -11,10 +11,10 @@ public interface TaskService {
     Task getTaskById(String id);
     List<Task> getOverdueTasks();
     List<Task> getTasksByCategory(String category);
-    List<SubTask> getSubTasksByTaskCategory(String category);
+    List<Task> getSubTasksByTaskCategory(String category);
 
     Task saveTask(Task task);
-    Task updateTaskWithSubtask(String id, SubTask subTask);
+    void updateTaskWithSubtask(String id, SubTask subTask);
     void deleteTask(String id);
 
     List<Task> findByDescriptionContaining(String phrase);
